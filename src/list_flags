@@ -1,0 +1,18 @@
+#!/bin/bash
+
+[[ ! -z $GREP_COLOR ]] && echo -e "[GREP_COLOR]          \t${GREP_COLOR}"
+[[ ! -z $GREP_QUIET ]] && echo -e "[GREP_QUIET]          \t$GREP_QUIET"
+[[ ! -z $GREP_LINENUM ]] && echo -e "[GREP_LINENUM]        \t$GREP_LINENUM"
+[[ ! -z $GREP_FILENAME ]] && echo -e "[GREP_FILENAME]       \t$GREP_FILENAME"
+[[ ! -z $GREP_BEFORE ]] && echo -e "[GREP_BEFORE]         \t$GREP_BEFORE"
+[[ ! -z $GREP_AFTER ]] && echo -e "[GREP_AFTER]          \t$GREP_AFTER"
+[[ ! -z $GREP_NOCASE ]] && echo -e "[GREP_NOCASE]         \t$GREP_NOCASE"
+[[ ! -z $GREP_REGEX_EXT ]] && echo -e "[GREP_REGEX_EXT]      \t$GREP_REGEX_EXT"
+[[ ! -z $GREP_BINARY ]] && echo -e "[GREP_BINARY]         \t$GREP_BINARY"
+[[ ! -z $GREP_EXCLUDE_DIRS ]] && echo -e "[GREP_EXCLUDE_DIRS]   \t$GREP_EXCLUDE_DIRS"
+[[ ! -z $GREP_EXCLUDE_PATTERN ]] && echo -e "[GREP_EXCLUDE_PATTERN]   \t$GREP_EXCLUDE_PATTERN"
+[[ ! -z $GREP_EXCLUDE_FILE ]] && echo -e "[GREP_EXCLUDE_FILE]   \t$GREP_EXCLUDE_FILE"
+[[ ! -z $GREP_FLAGS ]] && echo -e "[GREP_FLAGS]          \t$GREP_FLAGS"
+[[ ! -z $GREP_EXCLUDE_FILE ]] && echo -e "[GREP_EXCLUDE_FLAGS]      \t$GREP_EXCLUDE_FLAGS"
+
+echo ""

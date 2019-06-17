@@ -1,0 +1,23 @@
+# THIS FILE IS EXPERIMENTAL / FOR REFERENCE ONLY
+# IT DOES NOT DO ANYTHING
+
+[style]
+color = true
+quiet = true
+linenum = true
+filename = true
+context_before = 0
+context_after = 0
+group_seperator = false
+
+[select]
+nocase = false
+recursive = true
+regex_ext = false
+binary = false
+
+[exclude]
+pattern = [ *.min.css, *.min.js ]
+dirs = [ .git, node_modules ] 
+file = "/home/icarus/.grepignore"
+

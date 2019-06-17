@@ -1,0 +1,26 @@
+#!/bin/bash
+
+echo -e"
+# -----
+# GREPTOOL CONFIGURATION FILE
+# Variable override order
+#   1. A '.greprc' IN THE USER HOME DIRECTORY
+#   2. A '.greprc' N THE CURRENT DIRECTORY
+#   3. ALL VALUES CAN BE SET AS ENVIRONMENT VARIABLES
+# ------
+# UNCOMMENT TO ENABLE THE SETTING
+#GREP_COLOR=\"yes\"
+#GREP_QUIET=\"yes\"
+#GREP_DEBUG=\"yes\"
+#GREP_LINENUM=\"yes\"
+#GREP_FILENAME=\"yes\"
+#GREP_BEFORE=1
+#GREP_AFTER=1
+#GREP_GROUPS=\"no\"
+#GREP_NOCASE=\"yes\"
+#GREP_REGEX_EXT=\"yes\"
+#GREP_BINARY=\"yes\"
+#GREP_EXCLUDE_PATTERN=\"yes\"
+#GREP_EXCLUDE_DIRS=\"yes\"
+#GREP_EXCLUDE_FILE=\"yes\"
+"

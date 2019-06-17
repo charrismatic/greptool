@@ -1,0 +1,163 @@
+#!/bin/bash
+
+# =============================================================================
+# - GREP Command Utility
+#   Grep configuration and user settings utility
+# =============================================================================
+
+GREPTOOL_SCRIPT_FILE="$( readlink -f $BASH_SOURCE)"
+GREPTOOL_SCRIPT_DIR="$(dirname $GREPTOOL_SCRIPT_FILE)"
+GREPTOOL_SRC="${GREPTOOL_SCRIPT_DIR}/../src"
+
+
+__help () {
+  echo -e "\n  [g] - grep helper function and command flag manager"
+  echo -e "\n[Commands]\n"
+  echo -e "  help                  - print this message"
+  echo -e "  list                  - show all option values"
+  echo -e "  get <option>          - get a current variable value"
+  echo -e "  set <option> <value>  - set variable to a new value"
+  echo -e "  save <file>           - output the current environment to file in the current directory"
+  echo -e "  reset                 - sets all variables to the initial default"
+  echo -e "  reload                - reload the local grep.env file"
+  echo -e "  update                - manually update grep flags (Only needed if youve made"
+  echo -e "                          chages to the env outside of this script)"
+  echo -e "  clear                 - remove all related env variables from the current session"
+  echo -e "  debug                 - print all environment variables and some that might not be related"
+  echo -e "\n"
+}
+
+
+__unset_flag () {
+  PARAM=${1:?'Parameter required'}
+  unset ${PARAM?}
+  . "$GREPTOOL_SRC/set_flags"
+
+}
+
+__set_flag () {
+  PARAM1=${1:?'Parameter required'}
+  FLAG_NAME=${PARAM1^^}
+  PARAM2=${2:?'No value given'}
+  FLAG_VALUE=${PARAM2^^}
+
+  ${FLAG_NAME}="$FLAG_VALUE"
+
+  echo -e "Updating grep flags \n\t${FLAG_NAME}:\t${FLAG_VALUE}\n"
+
+  export ${FLAG_NAME?}
+
+  . "$GREPTOOL_SRC/set_flags"
+
+}
+
+__get_flag () {
+  PARAM=${1:?'Parameter required'}
+  FLAG_NAME=${PARAM^^}
+  FLAG_VALUES=${!FLAG_NAME}
+
+  echo "[$FLAG_NAME] $FLAG_VALUES"
+}
+
+
+# No Argumets given
+# -----------------
+if [ $# == 0 ]; then
+    __help
+fi
+
+
+while [[ $# -gt 0 ]]; do
+  key="$1"
+  shift
+  case $key in
+
+    list)
+      . "$GREPTOOL_SRC/list_flags"
+     ;;
+
+    reset)
+      . "$GREPTOOL_SRC/clear_env"
+      . "$GREPTOOL_SRC/load_env"
+      . "$GREPTOOL_SRC/set_flags"
+      . "$GREPTOOL_SRC/list_flags"
+    ;;
+
+    reload)
+      . "$GREPTOOL_SRC/load_env"
+      . "$GREPTOOL_SRC/set_flags"
+      . "$GREPTOOL_SRC/list_flags"
+    ;;
+
+    update)
+      . "$GREPTOOL_SRC/load_env"
+      . "$GREPTOOL_SRC/set_flags"
+      . "$GREPTOOL_SRC/list_flags"
+    ;;
+
+    clear)
+      . "$GREPTOOL_SRC/clear_env"
+    ;;
+
+    #  BELOW REQUIRES SOME SIMPLE FILE REWRITING
+    #  NOT NEEDED RIGHT AWAY
+
+    get)
+      KEYNAME=$1
+      shift
+       __get_flag $KEYNAME
+    ;;
+
+
+    set)
+      KEYNAME=$1
+      KEYVALUE=$2
+      shift
+      __set_flag $KEYNAME $KEYVALUE
+    ;;
+
+
+    unset)
+      KEYNAME=$1
+      shift
+      __unset_flag $KEYNAME
+    ;;
+
+    save)
+      [[ -f "${PWD}/.greprc" ]] && echo "a .greprc file already exists. remove that file before exporting"
+      . "$GREPTOOL_SRC/load_env"
+      . "$GREPTOOL_SRC/save_greprc_file"  > "${PWD}/.greprc"
+    ;;
+
+    debug)
+      declare -p | grep GREP
+    ;;
+
+    help)
+        __help
+    ;;
+
+    *)
+      __help
+    ;;
+
+   esac
+
+done
+
+
+export GREP_FLAGS=$GREP_FLAGS
+export GREP_EXCLUDE_FLAGS=$GREP_EXCLUDE_FLAGS
+
+if [ "$GREP_DEBUG" == "yes" ]; then
+  echo -e "\n-- DEBUG --"
+  echo "GREP_FLAGS $GREP_FLAGS"
+  echo "GREP_EXCLUDE_FLAGS $GREP_EXCLUDE_FLAGS"
+fi
+
+unset GREPTOOL_SCRIPT_FILE
+unset GREPTOOL_SCRIPT_DIR
+unset GREPTOOL_SRC
+
+
+# exit 0

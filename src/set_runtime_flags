@@ -1,0 +1,39 @@
+#!/bin/bash
+
+
+# APPLY FLAGS FOR PROCESS NOT A PIPE
+
+
+  GREP_RUNTIME_FLAGS=""
+
+  # APPLY RUNTIME ONLY FLAGS
+
+  GREP_RUNTIME_FLAGS=""
+
+  if [ "$GREP_LINENUM" == "yes" ]; then
+    GREP_RUNTIME_FLAGS="$GREP_RUNTIME_FLAGS --line-number"
+  fi
+
+  if [ "$GREP_FILENAME" == "yes" ]; then
+    GREP_RUNTIME_FLAGS="$GREP_RUNTIME_FLAGS --with-filename"
+  else
+    GREP_RUNTIME_FLAGS="$GREP_RUNTIME_FLAGS --no-filename"
+  fi
+
+  # SET FILE EXCLUSION FLAGS
+
+  [[ -v GREP_EXCLUDE_FILE ]] && \
+      [[ -f $GREP_EXCLUDE_FILE ]] && \
+      GREP_RUNTIME_FLAGS="${GREP_RUNTIME_FLAGS} --exclude-from=${GREP_EXCLUDE_FILE}"
+
+  [[ -v GREP_EXCLUDE_DIRS ]] && \
+      GREP_RUNTIME_FLAGS="${GREP_RUNTIME_FLAGS} --exclude-dir=${GREP_EXCLUDE_DIRS//,/ --exclude-dir=}"
+
+  [[ -v GREP_EXCLUDE_PATTERN ]] && \
+      GREP_RUNTIME_FLAGS="${GREP_RUNTIME_FLAGS} --exclude=${GREP_EXCLUDE_PATTERN//,/ --exclude=}"
+
+
+  GREP_RUNTIME_FLAGS="$GREP_RUNTIME_FLAGS --recursive "
+
+
+export GREP_RUNTIME_FLAGS

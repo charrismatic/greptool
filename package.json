@@ -1,0 +1,17 @@
+{
+  "name": "greptool",
+  "version": "1.0.0",
+  "description": "grep helper function and command line flag manager",
+  "keywords": ["linux", "bash", "grep", "search"],
+  "main": "index.js",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/charrismatic/greptool.git"
+  },
+  "os" : [ "darwin", "linux" ],
+  "scripts": {
+    "test": "standard"
+  },
+  "author": "Matt Harris <charrismatic@protonmail.com> (https://charrismatic.github.io/)",
+  "license": "ISC"
+}

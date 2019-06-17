@@ -1,0 +1,27 @@
+# ALL VALUES CAN BE SET AS ENVIRONMENT VARIABLES
+# OR IN A `.greprc` WITHIN A LOCAL DIRECTORY
+# -------------------------------------
+# PRESENTATION OPTIONS
+# -------------------------------------
+GREP_COLOR="yes"
+GREP_QUIET="yes"
+GREP_DEBUG="no"
+GREP_LINENUM="yes"
+GREP_FILENAME="yes"
+GREP_GROUPS="no"
+GREP_BEFORE=0
+GREP_AFTER=0
+
+# -------------------------------------
+# SELECTION / PATTERN
+# -------------------------------------
+GREP_NOCASE="no"
+GREP_REGEX_EXT="no"
+GREP_BINARY="no"
+
+# -------------------------------------
+# EXCLUSION
+# -------------------------------------
+GREP_EXCLUDE_PATTERN="*.min.js,*.min.css"
+GREP_EXCLUDE_DIRS=".git,node_modules"
+GREP_EXCLUDE_FILE="$HOME/.grepignore"

@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# SETUP GENERAL FLAGS
+
+GREP_FLAGS=""
+
+if [ "$GREP_COLOR" == "yes" ];  then
+  GREP_FLAGS="$GREP_FLAGS --color=always"
+fi
+
+if [ "$GREP_NOCASE" == "yes" ]; then
+  GREP_FLAGS="$GREP_FLAGS --ignore-case"
+fi
+
+if [ "$GREP_REGEX_EXT" == "yes" ]; then
+  GREP_FLAGS="$GREP_FLAGS --extended-regexp"
+fi
+
+if [ "$GREP_QUIET" == "yes" ]; then
+  GREP_FLAGS="$GREP_FLAGS --no-messages"
+fi
+
+if [ "$GREP_GROUPS" == "no" ]; then
+  GREP_FLAGS="$GREP_FLAGS --no-group-separator"
+fi
+
+
+[[ "$GREP_BINARY" == "yes" ]] && GREP_FLAGS="$GREP_FLAGS --text"
+
+[[ ! -z $GREP_BEFORE ]] && GREP_FLAGS="$GREP_FLAGS --before-context=$GREP_BEFORE"
+
+[[ ! -z $GREP_AFTER ]] && GREP_FLAGS="$GREP_FLAGS --after-context=$GREP_AFTER"
+
+GREP_FLAGS="$GREP_FLAGS "
+
+export GREP_FLAGS
+
+
+
+
+[[ -v GREP_BEFORE ]] && FLAGS="$FLAGS --before-context=$GREP_BEFORE"
+[[ -v GREP_AFTER ]] && FLAGS="$FLAGS --after-context=$GREP_AFTER"
+
+[[ -v GREP_EXCLUDE_FILE ]] && \
+    [[ -f $GREP_EXCLUDE_FILE ]] && \
+    EXCLUDE_FLAGS="${EXCLUDE_FLAGS} --exclude-from=${GREP_EXCLUDE_FILE}"
+
+[[ -v GREP_EXCLUDE_DIRS ]] && EXCLUDE_FLAGS="${EXCLUDE_FLAGS} --exclude-dir=${GREP_EXCLUDE_DIRS//,/ --exclude-dir=}"
+[[ -v GREP_EXCLUDE_PATTERN ]] && EXCLUDE_FLAGS="${EXCLUDE_FLAGS} --exclude=${GREP_EXCLUDE_PATTERN//,/ --exclude=}"
+
+unset GREP_EXCLUDE_FLAGS
+
+export GREP_COLOR
+export GREP_QUIET
+export GREP_LINENUM
+export GREP_FILENAME
+export GREP_BEFORE
+export GREP_AFTER
+export GREP_NOCASE
+export GREP_REGEX_EXT
+export GREP_BINARY
+export GREP_EXCLUDE_DIRS
+export GREP_EXCLUDE_PATTERN
+export GREP_EXCLUDE_FILE
+
+#
+
+GREP_FLAGS=$FLAGS
+GREP_EXCLUDE_FLAGS=$EXCLUDE_FLAGS
+
+export GREP_FLAGS
+export GREP_EXCLUDE_FLAGS

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+if [ "$GREP_DEBUG" == "yes" ]; then
+  echo -e "\n------------------------\n\tdone\n------------------------"
+  echo -e "\n  [COMMAND]\n\n  grep $GREP_EXECUTION_STRING\n"
+  echo -e "\n  [GREP_FLAGS]  Set in env or .greprc file"
+  echo -e "\n\t${GREP_FLAGS}"
+  echo -e "\n  [GREP_RUNTIME_FLAGS]  Conditional flags set based on the conditions at runtime"
+  echo -e "\n\t${GREP_RUNTIME_FLAGS}"
+  echo -e "\n  [GREP_COMMAND_ARGUMENTS]  Arguments set at the commandline during execution"
+  echo -e "\n\t${GREP_COMMAND_ARGUMENTS}\n"
+fi
